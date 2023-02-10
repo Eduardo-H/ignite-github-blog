@@ -1,7 +1,6 @@
-import { useEffect, useState } from 'react';
 import { faArrowUpRightFromSquare, faBuilding, faUserGroup } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import axios from 'axios';
+import { User } from '../..';
 
 import githuSvg from '../../../../assets/icons/github.svg';
 
@@ -14,29 +13,11 @@ import {
   UserProfileHeader 
 } from './styles';
 
-interface User {
-  name: string;
-  login: string;
-  bio: string;
-  avatar_url: string;
-  html_url: string;
-  company: string;
-  followers: number;  
+interface UserCardProps {
+  user: User; 
 }
 
-export function UserCard() {
-  const [user, setUser] = useState<User>({} as User);
-
-  async function fetchUserData() {
-    const response = await axios.get<User>('https://api.github.com/users/eduardo-h');
-
-    setUser(response.data);
-  }
-
-  useEffect(() => {
-    fetchUserData();
-  }, []);
-
+export function UserCard({ user }: UserCardProps) {
   return (
     <UserCardContainer>
       <UserProfileContainer>
