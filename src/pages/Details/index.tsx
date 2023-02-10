@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faArrowUpRightFromSquare, faCalendar, faComment } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 
-import { formatPostDate } from '../../utils/formatters';
 import { PostBody } from '../../components/PostBody';
 
 import githuSvg from '../../assets/icons/github.svg';
@@ -29,7 +28,6 @@ export function Details() {
 
   async function fetchPost() {
     const response = await axios.get<Post>(`https://api.github.com/repos/eduardo-h/github-blog-posts/issues/${urlParams.id}`);
-
     setPost(response.data as Post);
   }
 
@@ -62,7 +60,7 @@ export function Details() {
 
           <div>
             <FontAwesomeIcon icon={faCalendar} />
-            <span>{formatPostDate(new Date())}</span>
+            <span>{new Date(post.created_at).toLocaleDateString('pt-BR')}</span>
           </div>
 
           <div>

@@ -87,7 +87,7 @@ export const PostCard = styled(NavLink)`
       padding: 0.1rem 0.2rem;
       font-size: 0.75rem;
       border-radius: 4px;
-      background: ${props => props.theme['base-label']};
+      background: ${props => props.theme['base-border']};
     }
 
     pre {
