@@ -110,6 +110,12 @@ export const PostCard = styled(NavLink)`
   }
 `;
 
+export const SpinnerContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+`
+
 export const EmptyPostList = styled.div`
   display: flex;
   justify-content: center;

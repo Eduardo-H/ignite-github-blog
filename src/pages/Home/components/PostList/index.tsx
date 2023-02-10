@@ -4,12 +4,13 @@ import { formatPostDate } from '../../../../utils/formatters';
 import { PostsContext } from '../../../../contexts/PostsContext';
 import { PostBody } from '../../../../components/PostBody';
 
-import { EmptyPostList, PostCard, PostListContainer, SearchPostForm } from './styles';
+import { EmptyPostList, PostCard, PostListContainer, SearchPostForm, SpinnerContainer } from './styles';
+import { Spinner } from '../../../../components/Spinner';
 
 export function PostList() {
   const [searchTerm, setSearchTerm] = useState('');
 
-  const { posts, fetchPosts } = useContext(PostsContext);
+  const { posts, fetchPosts, isFetchingPosts } = useContext(PostsContext);
 
   async function searchPosts(event: FormEvent) {
     event.preventDefault();
@@ -35,25 +36,33 @@ export function PostList() {
       </SearchPostForm>
 
       {
-        posts.length > 0 ?
-        <PostListContainer>
-          {posts.map(post => (
-            <PostCard key={post.id} to={`/details/${post.number}`}>
-              <header>
-                <h2>{post.title}</h2>
-                <span>{formatPostDate(post.created_at)}</span>
-              </header>
-
-              <article>
-                <PostBody body={post.body} />
-              </article>
-            </PostCard>
-          ))}
-        </PostListContainer>
+        isFetchingPosts
+        ? (
+          <SpinnerContainer>
+            <Spinner />
+          </SpinnerContainer>
+        )
         : (
-          <EmptyPostList>
-            <span>No posts found</span>
-          </EmptyPostList>
+          posts.length > 0 ?
+            <PostListContainer>
+              {posts.map(post => (
+                <PostCard key={post.id} to={`/details/${post.number}`}>
+                  <header>
+                    <h2>{post.title}</h2>
+                    <span>{formatPostDate(post.created_at)}</span>
+                  </header>
+
+                  <article>
+                    <PostBody body={post.body} />
+                  </article>
+                </PostCard>
+              ))}
+            </PostListContainer>
+            : (
+              <EmptyPostList>
+                <span>No posts found</span>
+              </EmptyPostList>
+            )
         )
       }
     </>

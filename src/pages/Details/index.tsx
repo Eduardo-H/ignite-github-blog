@@ -8,7 +8,8 @@ import { PostBody } from '../../components/PostBody';
 
 import githuSvg from '../../assets/icons/github.svg';
 
-import { DetailsContainer, PostInfo, PostBodyContainer } from './styles';
+import { DetailsContainer, PostInfo, PostBodyContainer, SpinnerContainer } from './styles';
+import { Spinner } from '../../components/Spinner';
 
 interface Post {
   user?: {
@@ -23,12 +24,14 @@ interface Post {
 
 export function Details() {
   const [post, setPost] = useState<Post>({} as Post);
+  const [isFetchingPost, setIsFetchingPost] = useState(true);
 
   const urlParams = useParams();
 
   async function fetchPost() {
     const response = await axios.get<Post>(`https://api.github.com/repos/eduardo-h/github-blog-posts/issues/${urlParams.id}`);
-    setPost(response.data as Post);
+    setPost(response.data);
+    setIsFetchingPost(false);
   }
 
   useEffect(() => {
@@ -37,42 +40,55 @@ export function Details() {
 
   return (
     <DetailsContainer>
-      <PostInfo>
-        <header>
-          <NavLink to="/">
-            <FontAwesomeIcon icon={faChevronLeft} />
-            Back
-          </NavLink>
+      {
+        isFetchingPost
+        ? (
+          <SpinnerContainer>
+            <Spinner />
+          </SpinnerContainer>
+        )
+        : 
+        (
+          <>
+            <PostInfo>
+              <header>
+                <NavLink to="/">
+                  <FontAwesomeIcon icon={faChevronLeft} />
+                  Back
+                </NavLink>
 
-          <a href={post.html_url} target="_blank">
-            See on GitHub
-            <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
-          </a>
-        </header>
+                <a href={post.html_url} target="_blank">
+                  See on GitHub
+                  <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+                </a>
+              </header>
 
-        <h1>{post.title}</h1>
+              <h1>{post.title}</h1>
 
-        <footer>
-          <div>
-            <img src={githuSvg} alt="" />
-            <span>{post.user?.login}</span>
-          </div>
+              <footer>
+                <div>
+                  <img src={githuSvg} alt="" />
+                  <span>{post.user?.login}</span>
+                </div>
 
-          <div>
-            <FontAwesomeIcon icon={faCalendar} />
-            <span>{new Date(post.created_at).toLocaleDateString('pt-BR')}</span>
-          </div>
+                <div>
+                  <FontAwesomeIcon icon={faCalendar} />
+                  <span>{new Date(post.created_at).toLocaleDateString('pt-BR')}</span>
+                </div>
 
-          <div>
-            <FontAwesomeIcon icon={faComment} />
-            <span>{post.comments} comments</span>
-          </div>
-        </footer>        
-      </PostInfo>
+                <div>
+                  <FontAwesomeIcon icon={faComment} />
+                  <span>{post.comments} comments</span>
+                </div>
+              </footer>        
+            </PostInfo>
 
-      <PostBodyContainer>
-        <PostBody body={post.body} />
-      </PostBodyContainer>
+            <PostBodyContainer>
+              <PostBody body={post.body} />
+            </PostBodyContainer>
+          </>
+      )
+      }
     </DetailsContainer>
   );
 }

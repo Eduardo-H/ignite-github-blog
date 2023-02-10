@@ -95,3 +95,10 @@ export const PostBodyContainer = styled.article`
     }
   }
 `;
+
+export const SpinnerContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 5rem;
+`
