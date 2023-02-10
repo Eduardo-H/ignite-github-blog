@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const SearchPostForm = styled.form`
@@ -49,22 +50,24 @@ export const PostListContainer = styled.div`
   margin-top: 2rem;
 `;
 
-export const PostCard = styled.a`
+export const PostCard = styled(NavLink)`
   padding: 2rem;
   background: ${props => props.theme['base-post']};
   border: 2px solid transparent;
   border-radius: 10px;
   cursor: pointer;
   overflow: hidden;
+  text-decoration: none;
 
   header {
     display: flex;
     justify-content: space-between;
+    gap: 0.5rem;
 
     h2 {
       font-size: 1.25rem;
       color: ${props => props.theme['base-title']};
-      max-width: 75%;
+      flex: 1;
     }
 
     span {
@@ -78,6 +81,27 @@ export const PostCard = styled.a`
     text-overflow: ellipsis;
     max-height: 5.5rem;
     overflow: hidden;
+    color: ${props => props.theme['base-text']};
+
+    code {
+      padding: 0.1rem 0.2rem;
+      font-size: 0.75rem;
+      border-radius: 4px;
+      background: ${props => props.theme['base-label']};
+    }
+
+    pre {
+      margin: 1rem 0;
+      font-size: 0.875rem;
+
+      > div {
+        background: ${props => props.theme['base-post']} !important;
+      }
+
+      code {
+        font-size: 0.875rem;
+      }
+    }
   }
 
   :hover {

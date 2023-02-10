@@ -1,7 +1,7 @@
 import { createContext, ReactNode, useEffect, useState } from 'react';
 import axios from 'axios';
 
-interface Post {
+export interface Post {
   id: string;
   number: number;
   title: string;

@@ -1,20 +1,20 @@
 import { FormEvent, useContext, useState } from 'react';
-import ReactMarkdown from 'react-markdown';
 
 import { formatPostDate } from '../../../../utils/formatters';
 import { PostsContext } from '../../../../contexts/PostsContext';
+import { PostBody } from '../../../../components/PostBody';
 
 import { EmptyPostList, PostCard, PostListContainer, SearchPostForm } from './styles';
 
 export function PostList() {
   const [searchTerm, setSearchTerm] = useState('');
+
   const { posts, fetchPosts } = useContext(PostsContext);
 
   async function searchPosts(event: FormEvent) {
     event.preventDefault();
 
     await fetchPosts(searchTerm);
-
     setSearchTerm('');
   }
 
@@ -38,16 +38,14 @@ export function PostList() {
         posts.length > 0 ?
         <PostListContainer>
           {posts.map(post => (
-            <PostCard key={post.id}>
+            <PostCard key={post.id} to={`/details/${post.number}`}>
               <header>
                 <h2>{post.title}</h2>
                 <span>{formatPostDate(post.created_at)}</span>
               </header>
 
               <article>
-                <ReactMarkdown>
-                  {post.body}
-                </ReactMarkdown>
+                <PostBody body={post.body} />
               </article>
             </PostCard>
           ))}
