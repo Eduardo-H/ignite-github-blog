@@ -20,9 +20,12 @@ export const UserProfileContainer = styled.div`
   }
 
   @media (max-width: 768px) {
+    flex-direction: column;
+
     img {
-      height: 5rem;
-      width: 5rem;
+      height: 7rem;
+      width: 7rem;
+      margin: 0 auto;
     }
   }
 `;
@@ -90,6 +93,7 @@ export const UserProfileFooter = styled.footer`
 
     svg {
       color: ${props => props.theme['base-label']};
+      min-width: 1rem;
     }
   }
 
@@ -97,5 +101,10 @@ export const UserProfileFooter = styled.footer`
     flex-direction: column;
     gap: 0.5rem;
     align-items: flex-start;
+    margin-top: 1rem;
+
+    div {
+      font-size: 0.875rem;
+    }
   }
 `;

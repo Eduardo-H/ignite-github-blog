@@ -66,6 +66,20 @@ export const PostInfo = styled.div`
       }
     }
   }
+
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 1.5rem;
+    }
+
+    footer {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+
+      margin-top: 1rem;
+    }
+  }
 `;
 
 export const PostBodyContainer = styled.article`
@@ -93,6 +107,10 @@ export const PostBodyContainer = styled.article`
     code {
       font-size: 0.875rem;
     }
+  }
+
+  @media (max-width: 768px) {
+    padding: 2rem 1rem;
   }
 `;
 

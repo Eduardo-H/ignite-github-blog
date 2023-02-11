@@ -43,6 +43,10 @@ export const UserCardSkeletonContainer = styled.div`
 export const UserProfileContainer = styled.div`
   display: flex;
   gap: 2rem;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
 
 export const UserProfile = styled.div`
@@ -70,6 +74,10 @@ export const UserProfile = styled.div`
     gap: 1rem;
 
     margin-top: auto;
+
+    @media (max-width: 768px) {
+      margin-top: 1rem;
+    }
   }
 `;
 
@@ -77,4 +85,10 @@ export const ImageSkeleton = styled(Skeleton)`
   height: 10rem;
   width: 10rem;
   border-radius: 8px;
+
+  @media (max-width: 768px) {
+    height: 7rem;
+    width: 7rem;
+    margin: 0 auto;
+  }
 `;

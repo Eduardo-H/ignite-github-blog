@@ -48,6 +48,10 @@ export const PostListContainer = styled.div`
   gap: 1rem;
 
   margin-top: 2rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 export const PostCard = styled(NavLink)`

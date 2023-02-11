@@ -41,7 +41,7 @@ export function UserCard({ user }: UserCardProps) {
 
           <UserProfileFooter>
             <div>
-              <img src={githuSvg} alt="" />
+              <img src={githuSvg} alt="GitHub logo" />
               <span>{user.login}</span>
             </div>
 
